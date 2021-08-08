@@ -3,6 +3,9 @@
 require_once('config.php');
 
 
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +23,12 @@ require_once('config.php');
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/shop-hompage.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -54,12 +60,6 @@ require_once('config.php');
                     <li>
                         <a href="#">Shop</a>
                     </li>
-                    <li>
-                        <a href="login.php">Login</a>
-                    </li>
-                    <li>
-                        <a href="admin">Admin</a>
-                    </li>
                      <li>
                         <a href="checkout.html">Checkout</a>
                     </li>
@@ -68,6 +68,72 @@ require_once('config.php');
                     </li>
 
                 </ul>
+                
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li class="dropdown">
+                    <a href="register">
+                        <span class="glyphicon glyphicon-plus"></span> 
+                        <strong>Register</strong>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="login" 
+                    <?php 
+                        if (isset($_SESSION['username'])) {
+                            echo "class='dropdown-toggle' data-toggle='dropdown'";
+                        }
+                    ?> 
+                    
+                    
+                    >
+                        <span class="glyphicon glyphicon-user"></span> 
+                        <?php
+
+                            if(isset($_SESSION['username'])) {
+                                echo "<strong>" . $_SESSION['username'] . "</strong>";
+                            } else { 
+                                echo "<strong>Login</strong>";
+                            }
+
+                        ?>
+                        
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="navbar-login">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <p class="text-center">
+                                            <span class="glyphicon glyphicon-user icon-size"></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <p class="text-left"><strong><?php if (isset($_SESSION['username'])) echo $_SESSION["username"]; ?></strong></p>
+                                        <p class="text-left small"><?php if (isset($_SESSION['email'])) echo $_SESSION["email"]; ?></p>
+                                        <p class="text-left">
+                                            <a href="#" class="btn btn-primary btn-block btn-sm">Profile</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="navbar-login navbar-login-session">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <p>
+                                            <a href="logout" class="btn btn-danger btn-block">Logout</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>

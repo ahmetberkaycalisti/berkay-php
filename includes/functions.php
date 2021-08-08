@@ -116,6 +116,7 @@ function login_user(){
 
             $username = escape_string($_POST['username']);
             $password = escape_string($_POST['password']);
+            $password = md5($password);
             $query = query("SELECT * FROM users WHERE user_username='$username' AND user_password='$password'");
             confirm($query);
 
@@ -127,10 +128,10 @@ function login_user(){
 
                 while ($row = fetch_array($query)) {
                     $_SESSION['username'] = $row['user_username'];
-                    $_SESSION['username'] = $row['user_username'];
+                    $_SESSION['email'] = $row['user_email'];
                 }
-
-                redirect("login.php");
+                
+                redirect("index.php");
                 return;
 
             }
@@ -142,7 +143,89 @@ function login_user(){
         }
 
     }
+} // end of function login_user
+
+function register_user() {
+
+    if (isset($_POST['submit_button_register'])) {
+
+        
+        if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['confirm'])) {
+
+            $firstname = escape_string($_POST['firstname']);
+            $lastname = escape_string($_POST['lastname']);
+            $username = escape_string($_POST['username']);
+            $email = escape_string($_POST['email']);
+            $password = escape_string($_POST['password']);
+            $confirm = escape_string($_POST['confirm']);
+
+            if ($password != $confirm) {
+                // echo "<script>alert('BABA SIFRELER UYUSMUYOR')</script>";    
+                set_message("BABA SIFRELER UYUSMUYOR");
+                redirect("register");
+                return;
+            }
+
+
+            $firstname = strip_tags($firstname);   // Remove html tags
+            $firstname = str_replace(' ', '', $firstname);      // remove spaces
+            $firstname = ucfirst(strtolower($firstname));   // Uppercase first letter
+
+            $lastname = strip_tags($lastname);   // Remove html tags
+            $lastname = str_replace(' ', '', $lastname);      // remove spaces
+            $lastname = ucfirst(strtolower($lastname));   // Uppercase first letter
+
+            $username = strip_tags($username);   // Remove html tags
+            $username = str_replace(' ', '', $username);      // remove spaces
+            $username = ucfirst(strtolower($username));   // Uppercase first letter
+
+            $email = strip_tags($email);   // Remove html tags
+            $email = str_replace(' ', '', $email);      // remove spaces
+            $email = strtolower($email);   // Uppercase first letter
+
+            $password = strip_tags($password);   // Remove html tags
+            $password = str_replace(' ', '', $password);      // remove spaces
+
+            $confirm = strip_tags($confirm);   // Remove html tags
+            $confirm = str_replace(' ', '', $confirm);      // remove spaces
+
+
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+                
+
+                $query = query("SELECT user_email from users WHERE user_email='$email'");
+                confirm($query);
+
+                $num_rows = mysqli_num_rows($query);
+                if($num_rows > 0) {
+                    set_message("THIS EMAIL ADDRESS USED BEFORE FOR ANOTHER USER");
+                    redirect("register");
+                    return;
+                }
+
+                $password = md5($password);
+
+                $query = query("INSERT INTO users VALUES(NULL, '$firstname','$lastname','$email',NULL,'$username','$password','','')");
+                confirm($query);
+                set_success_message("YOUR ACCOUNT IS CREATED. PLEASE LOG IN!");
+                redirect("login");
+                return;
+            }
+
+
+        } else {
+            // echo "<script>alert('BABA BIRISI BOS')</script>";
+            set_message("BABA BIRISI BOS");
+            redirect("register");
+            return;
+        }
+
+    }
+
+
 }
+
 
 ?>
 

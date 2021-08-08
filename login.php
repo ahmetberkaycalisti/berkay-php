@@ -7,13 +7,6 @@
 
       <header>
             <h1 class="text-center">Login</h1>`
-            <?php
-
-                if(isset($_SESSION['username'])) {
-                    echo "Welcome " . $_SESSION['username'];
-                }
-
-            ?>
         <div class="col-sm-4 col-sm-offset-5">         
             <form class="" action="" method="post" enctype="multipart/form-data">
             <h2 style="text-align: center; color:red;"><?php display_message(); ?></h2>
@@ -41,28 +34,10 @@
     </div>
     <!-- /.container -->
 
-    <div class="container">
+<?php
 
-        <hr>
 
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2030</p>
-                </div>
-            </div>
-        </footer>
+include('includes/footer.php');
 
-    </div>
-    <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-</body>
-
-</html>
+?>
