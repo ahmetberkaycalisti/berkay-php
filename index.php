@@ -8,14 +8,7 @@ include('includes/header.php');
 
         <div class="row">
 
-            <div class="col-md-3">
-                <p class="lead">Shop Name</p>
-                <div class="list-group">
-                    <a href="category.html" class="list-group-item">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
-                </div>
-            </div>
+            <?php include('includes/side_nav.php'); ?>
 
             <div class="col-md-9">
 

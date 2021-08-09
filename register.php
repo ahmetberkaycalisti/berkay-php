@@ -2,6 +2,10 @@
 
 include("includes/header.php");
 
+if (isset($_SESSION['username'])) {
+    redirect("./");
+    return;
+}
 
 ?>
 

@@ -1,23 +1,18 @@
 RewriteEngine On
 
-ErrorDocument 404 /404page.html
-
-RewriteRule ^logout/ logout.php [QSA,L]
-RewriteRule ^login/ login.php [QSA,L]
-RewriteRule ^register/ register.php [QSA,L]
-
-#RewriteRule ^category/([0-9]+) category.php?id=$1   [QSA,L] 
-#RewriteRule ^item/([0-9]+) item.php?id=$1   [QSA,L] 
-#RewriteRule ^cart/remove/([0-9]+) cart.php?remove=$1   [QSA,L] 
-#RewriteRule ^cart/([0-9]+) cart.php?add=$1   [QSA,L] 
-#RewriteRule ^cart/delete/([0-9]+) cart.php?delete=$1   [QSA,L] 
-#RewriteRule ^page/([0-9]+) index.php?page=$1   [QSA,L] 
-#RewriteRule ^logout/ logout.php   [QSA,L] 
-#RewriteRule ^login/ login.php   [QSA,L] 
-#RewriteRule ^contact/ contact.php   [QSA,L] 
-#RewriteRule ^profile/ profile.php   [QSA,L] 
-##RewriteRule ^vote/ vote.php   [QSA,L] 
-#RewriteRule ^admin/reports/ index.php?reports   [QSA,L] 
+RewriteRule ^category/([0-9]+) category.php?id=$1   [QSA,L] 
+RewriteRule ^item/([0-9]+) item.php?id=$1   [QSA,L] 
+RewriteRule ^cart/remove/([0-9]+) cart.php?remove=$1   [QSA,L] 
+RewriteRule ^cart/([0-9]+) cart.php?add=$1   [QSA,L] 
+RewriteRule ^cart/delete/([0-9]+) cart.php?delete=$1   [QSA,L] 
+RewriteRule ^page/([0-9]+) index.php?page=$1   [QSA,L] 
+RewriteRule ^logout/ logout.php   [QSA,L] 
+RewriteRule ^login/ login.php   [QSA,L] 
+RewriteRule ^contact/ contact.php   [QSA,L] 
+RewriteRule ^profile/ profile.php   [QSA,L] 
+RewriteRule ^register/ register.php   [QSA,L] 
+#RewriteRule ^vote/ vote.php   [QSA,L] 
+RewriteRule ^admin/reports/ index.php?reports   [QSA,L] 
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f

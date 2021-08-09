@@ -129,9 +129,10 @@ function login_user(){
                 while ($row = fetch_array($query)) {
                     $_SESSION['username'] = $row['user_username'];
                     $_SESSION['email'] = $row['user_email'];
+                    $_SESSION['status'] = $row['user_status'];
                 }
                 
-                redirect("index.php");
+                redirect("./");
                 return;
 
             }
@@ -206,7 +207,7 @@ function register_user() {
 
                 $password = md5($password);
 
-                $query = query("INSERT INTO users VALUES(NULL, '$firstname','$lastname','$email',NULL,'$username','$password','','')");
+                $query = query("INSERT INTO users VALUES(NULL, '$firstname','$lastname','$email',NULL,'$username','$password','','',1)");
                 confirm($query);
                 set_success_message("YOUR ACCOUNT IS CREATED. PLEASE LOG IN!");
                 redirect("login");
@@ -225,6 +226,77 @@ function register_user() {
 
 
 }
+
+
+
+
+function get_categories() {
+
+    $query = query("SELECT * FROM categories");
+    confirm($query);
+
+    while ($row = fetch_array($query)) {
+
+        $categories_links  = <<<DELIMETER
+
+        <a href="category/{$row['cat_id']}" class="list-group-item">{$row['cat_title']}</a>
+
+DELIMETER;
+
+    echo $categories_links;
+
+    }
+
+}   // end of function get_categories()
+
+
+
+
+function show_categories_in_admin() {
+
+    $query = "SELECT * FROM categories";
+    $category_query = query($query);
+    confirm($category_query);
+
+    while ($row = fetch_array($category_query)) {
+        $cat_id = $row['cat_id'];
+        $cat_title = $row['cat_title'];
+        $cat_image = $row['cat_image'];
+
+        $category = <<<DELIMETER
+
+        <tr>
+            <td>{$cat_id}</td>
+            <td>{$cat_title}</td>
+            <td>{$cat_image}</td>
+            <td><a class='btn btn-danger' href='delete_categories?delete_category_id={$cat_id}'><span class='glyphicon glyphicon-remove'></span></a></td>
+        </tr>
+
+
+DELIMETER;
+
+        echo $category;
+    }
+
+}
+
+
+
+function add_category() {
+    if(isset($_POST['add_category'])) {
+        $cat_title = escape_string($_POST['cat_title']);
+        if(empty($cat_title) || $cat_title == " ") {
+            echo "<h3 class='bg-warning' style='text-align:center;'>Title can not be empty</h3>";
+            return;
+        }
+        $insert_cat = query("INSERT INTO categories VALUES(NULL, '$cat_title','default')");
+        confirm($insert_cat);
+        set_message("Category Created");
+        redirect("index.php?categories");
+        return;
+    }
+}
+
 
 
 ?>

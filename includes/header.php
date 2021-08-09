@@ -23,7 +23,6 @@ require_once('config.php');
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/shop-hompage.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
@@ -71,12 +70,28 @@ require_once('config.php');
                 
             <ul class="nav navbar-nav navbar-right">
                 
-                <li class="dropdown">
-                    <a href="register">
-                        <span class="glyphicon glyphicon-plus"></span> 
-                        <strong>Register</strong>
-                    </a>
-                </li>
+                <?php
+
+                    if (!isset($_SESSION['username'])) {
+
+                        $osman = "BABBBAA";
+                        echo <<<DELIMETER
+
+                    <li class="dropdown">
+                        <a href="register">
+                            <span class="glyphicon glyphicon-plus"></span> 
+                            <strong>Register</strong>
+                        </a>
+                    </li>
+
+
+DELIMETER;
+                    }
+
+
+                ?>
+
+
                 <li class="dropdown">
                     <a href="login" 
                     <?php 
@@ -119,6 +134,33 @@ require_once('config.php');
                                 </div>
                             </div>
                         </li>
+                        <?php
+
+                            if(isset($_SESSION['status'])) {
+                                $status = $_SESSION['status'];
+
+                                if ($status == 4) {
+                                    echo <<<DELIMETER
+
+                                    <li class="divider"></li>
+                                    <li>
+                                        <div class="navbar-login navbar-login-session">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <p>
+                                                        <a href="admin/" class="btn btn-warning btn-block">Admin</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+DELIMETER;                                    
+                                }
+                            }
+
+                        ?>
+
                         <li class="divider"></li>
                         <li>
                             <div class="navbar-login navbar-login-session">

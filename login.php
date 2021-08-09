@@ -1,6 +1,13 @@
 <?php
 
     include('includes/header.php');
+
+    if (isset($_SESSION['username'])) {
+        redirect("./");
+        return;
+    }
+
+
 ?>
     <!-- Page Content -->
     <div class="container">
